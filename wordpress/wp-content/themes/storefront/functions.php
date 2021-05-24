@@ -64,6 +64,12 @@ if ( version_compare( get_bloginfo( 'version' ), '4.7.3', '>=' ) && ( is_admin()
 	require 'inc/nux/class-storefront-nux-guided-tour.php';
 	require 'inc/nux/class-storefront-nux-starter-content.php';
 }
+add_action( 'woocommerce_single_product_summary', 'wc_product_sold_count', 11 );
+function wc_product_sold_count() {
+ global $product;
+ $units_sold = get_post_meta( $product->get_id(), 'total_sales', true );
+ echo '<p>' . sprintf( __( 'Đã Bán: %s', 'woocommerce' ), $units_sold ) . '</p>';
+}
 
 /**
  * Note: Do not add any custom code here. Please use a custom plugin so that your customizations aren't lost during updates.
